@@ -13,7 +13,7 @@ struct MainView: View {
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(Color(red: 0.66, green: 0.28, blue: 0.26))
+                    .foregroundColor(Color(Theme.cherry.rawValue))
             }.padding(.top, 50)
             //타이머
             ZStack{
@@ -30,12 +30,12 @@ struct MainView: View {
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                 .multilineTextAlignment(.center)
-                .foregroundColor(Color(red: 0.66, green: 0.28, blue: 0.26))
+                .foregroundColor(Color(Theme.cherry.rawValue))
             }
             .padding(.bottom, 100)
             
         }
-        .background(Color(red: 0.92, green: 0.86, blue: 0.76))
+        .background(Color(Theme.ivory.rawValue))
     }
 }
 

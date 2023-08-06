@@ -4,10 +4,10 @@ struct TimerCIrcle: View {
     var body: some View {
         ZStack {
             Circle()
-                .foregroundColor(Color(red: 0.85, green: 0.79, blue: 0.69))
+                .foregroundColor(Color(Theme.darkivory.rawValue))
             PieSegment(start: .zero, end: .degrees(190))
                 .rotationEffect(.degrees(270))
-                .foregroundColor(Color(red: 0.8, green: 0.36, blue: 0.35))
+                .foregroundColor(Color(Theme.strawberry.rawValue))
         }
     }
 }
