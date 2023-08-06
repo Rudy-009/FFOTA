@@ -4,17 +4,17 @@ struct TaskEditView: View {
     @Binding var isPresentedTaskEditView: Bool
     
     @State var task: String = ""
-    @State var selectColor: Color = Color(red: 0.89, green: 0.49, blue: 0.38)
+    @State var selectColor: Color = Color(Theme.red.rawValue)
     
     let colors: [Color] = [
-        Color(red: 0.89, green: 0.49, blue: 0.38),
-        Color(red: 0.9, green: 0.57, blue: 0.37),
-        Color(red: 0.89, green: 0.78, blue: 0.5),
-        Color(red: 0.79, green: 0.82, blue: 0.51),
-        Color(red: 0.61, green: 0.8, blue: 0.82),
-        Color(red: 0.47, green: 0.6, blue: 0.73),
-        Color(red: 0.78, green: 0.7, blue: 0.85),
-        Color(red: 0.9, green: 0.66, blue: 0.63)
+        Color(Theme.red.rawValue),
+        Color(Theme.orange.rawValue),
+        Color(Theme.yellow.rawValue),
+        Color(Theme.green.rawValue),
+        Color(Theme.blue.rawValue),
+        Color(Theme.navy.rawValue),
+        Color(Theme.purple.rawValue),
+        Color(Theme.pink.rawValue),
     ]
     
     let columns = [
@@ -28,22 +28,30 @@ struct TaskEditView: View {
         NavigationStack {
             ZStack {
                 Color(red: 0.87, green: 0.82, blue: 0.72)
+                Color(Theme.darkivory.rawValue)
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
                     VStack(alignment: .leading) {
                         Text("할 일 수정")
                             .fontWeight(.bold)
+                            .foregroundColor(.black)
                         TextField("할 일을 작성해주세요...", text: $task)
+                            .font(.system(size: 24))
+                            .foregroundColor(Color(Theme.darkGray.rawValue))
+                            .fontWeight(.bold)
                             .padding()
-                            .border(Color.gray)
-                            .foregroundColor(Color(red: 0.37, green: 0.36, blue: 0.36))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
                     }
                     .padding(.vertical, 30)
                     
                     VStack(alignment: .leading) {
                         Text("색상")
                             .fontWeight(.bold)
+                            .foregroundColor(.black)
                         LazyVGrid(columns: columns, spacing: 20) {
                             ForEach(colors, id: \.self) { color in
                                 Button {
