@@ -5,7 +5,7 @@ struct TaskListView: View {
     
     var body: some View {
         ZStack {
-            Color(red: 234/255, green: 220/255, blue: 195/255)
+            Color(Theme.ivory.rawValue)
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
@@ -17,10 +17,10 @@ struct TaskListView: View {
                     } label: {
                         ZStack {
                             Circle()
-                                .fill(Color(red: 127/255, green: 127/255, blue: 127/255, opacity: 0.2))
+                                .fill(Color(Theme.darkivory.rawValue))
                                 .frame(width: 30, height: 30)
                             Image(systemName: "plus")
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color(Theme.darkGray.rawValue))
                                 .font(.system(size: 14))
                                 .fontWeight(.bold)
                         }
@@ -35,23 +35,6 @@ struct TaskListView: View {
                                 .padding()
                         }
                         Spacer()
-                    }
-                }
-            }
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    isPresentedTaskEditView = true
-                } label: {
-                    ZStack {
-                        Circle()
-                            .fill(Color(red: 127/255, green: 127/255, blue: 127/255, opacity: 0.2))
-                            .frame(width: 30, height: 30)
-                        Image(systemName: "plus")
-                            .foregroundColor(.gray)
-                            .font(.system(size: 14))
-                            .fontWeight(.bold)
                     }
                 }
             }

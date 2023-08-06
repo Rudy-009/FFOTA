@@ -6,15 +6,16 @@ struct TaskListItemView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color(red: 0.87, green: 0.82, blue: 0.72))
+                .fill(Color(Theme.darkivory.rawValue))
                 .frame(height: 100)
             HStack {
                 Circle()
-                    .fill(Color(red: 0.89, green: 0.49, blue: 0.38))
+                    .fill(Color(Theme.navy.rawValue))
                     .frame(width: 18, height: 18)
                     .padding(.horizontal)
                 
                 Text("토익시험 준비")
+                    .foregroundColor(Color(Theme.darkGray.rawValue))
                     .fontWeight(.black)
                     .font(.system(size: 24))
                 Spacer()
