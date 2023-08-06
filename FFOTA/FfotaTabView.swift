@@ -15,6 +15,7 @@ struct FfotaTabView: View {
         .ignoresSafeArea()
         .tabViewStyle(PageTabViewStyle())
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .interactive))
+        .background(Color(red: 0.92, green: 0.86, blue: 0.76))
     }
 }
 
