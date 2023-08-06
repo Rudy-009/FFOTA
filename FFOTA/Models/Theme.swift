@@ -27,4 +27,7 @@ enum Theme: String, CaseIterable {
     
     // 리스트 아이템, 시트 배경 컬러
     case darkivory
+    
+    // 다크 그레이 폰트 컬러
+    case darkGray
 }
