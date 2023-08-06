@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TaskListItemView: View {
+    @Binding var isPresentedTaskEditView: Bool
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
@@ -17,7 +19,7 @@ struct TaskListItemView: View {
                     .font(.system(size: 24))
                 Spacer()
                 Button {
-                    
+                    isPresentedTaskEditView = true
                 } label: {
                     Text("수정")
                         .foregroundColor(.gray)
@@ -32,6 +34,6 @@ struct TaskListItemView: View {
 
 struct TaskListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskListItemView()
+        TaskListItemView(isPresentedTaskEditView: .constant(true))
     }
 }

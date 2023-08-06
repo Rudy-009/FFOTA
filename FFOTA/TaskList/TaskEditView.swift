@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TaskEditView: View {
-    @State var isPresentedTaskEditView: Bool = false
+    @Binding var isPresentedTaskEditView: Bool
     
     @State var task: String = ""
     @State var selectColor: Color = Color(red: 0.89, green: 0.49, blue: 0.38)
@@ -67,32 +67,31 @@ struct TaskEditView: View {
                     Spacer()
                 }
                 .padding(.horizontal)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            isPresentedTaskEditView = false
-                        } label: {
-                            Text("취소")
-                                .foregroundColor(.primary)
-                        }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        isPresentedTaskEditView = false
+                    } label: {
+                        Text("취소")
+                            .foregroundColor(.primary)
                     }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            isPresentedTaskEditView = false
-                        } label: {
-                            Text("완료")
-                                .foregroundColor(.primary)
-                        }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        isPresentedTaskEditView = false
+                    } label: {
+                        Text("완료")
+                            .foregroundColor(.primary)
                     }
                 }
             }
-            
         }
     }
 }
 
 struct TaskEditView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskEditView()
+        TaskEditView(isPresentedTaskEditView: .constant(true))
     }
 }
