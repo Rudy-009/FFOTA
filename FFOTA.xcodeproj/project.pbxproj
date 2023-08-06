@@ -20,6 +20,7 @@
 		63691E6A2A7F408200C38488 /* TaskListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63691E692A7F408200C38488 /* TaskListItemView.swift */; };
 		63691E6C2A7F409600C38488 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63691E6B2A7F409600C38488 /* TaskListView.swift */; };
 		63691E6E2A7F40BA00C38488 /* TaskEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63691E6D2A7F40BA00C38488 /* TaskEditView.swift */; };
+		DC6545B22A7F5A1000FE05EA /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6545B12A7F5A1000FE05EA /* Theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		63691E692A7F408200C38488 /* TaskListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListItemView.swift; sourceTree = "<group>"; };
 		63691E6B2A7F409600C38488 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		63691E6D2A7F40BA00C38488 /* TaskEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditView.swift; sourceTree = "<group>"; };
+		DC6545B12A7F5A1000FE05EA /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				63691E5F2A7F3F7F00C38488 /* FfotaTabView.swift */,
+				DC6545B02A7F5A0400FE05EA /* Models */,
 				63691E592A7F3F1300C38488 /* TaskList */,
 				63691E582A7F3F0B00C38488 /* Setting */,
 				63691E572A7F3F0000C38488 /* Main */,
@@ -116,6 +119,14 @@
 				63691E6D2A7F40BA00C38488 /* TaskEditView.swift */,
 			);
 			path = TaskList;
+			sourceTree = "<group>";
+		};
+		DC6545B02A7F5A0400FE05EA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DC6545B12A7F5A1000FE05EA /* Theme.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,6 +208,7 @@
 				63691E662A7F3FF400C38488 /* StasticBoxView.swift in Sources */,
 				63691E6E2A7F40BA00C38488 /* TaskEditView.swift in Sources */,
 				63691E6C2A7F409600C38488 /* TaskListView.swift in Sources */,
+				DC6545B22A7F5A1000FE05EA /* Theme.swift in Sources */,
 				63691E682A7F401800C38488 /* StatisticView.swift in Sources */,
 				63691E5E2A7F3F5800C38488 /* TimerCircle.swift in Sources */,
 			);
