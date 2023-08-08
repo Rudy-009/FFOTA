@@ -6,7 +6,7 @@ struct SettingDetailView: View {
     
     var body: some View {
         ZStack {
-            Color(red: 234/255, green: 220/255, blue: 195/255)
+            Color("\(Theme.ivory)")
                 .ignoresSafeArea(.all)
             
             VStack {

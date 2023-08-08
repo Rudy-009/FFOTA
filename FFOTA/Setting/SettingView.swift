@@ -3,7 +3,7 @@ import SwiftUI
 struct SettingView: View {
     var body: some View {
         ZStack {
-            Color(red: 234/255, green: 220/255, blue: 195/255)
+            Color("\(Theme.ivory)")
                 .ignoresSafeArea(.all)
             
             List {
@@ -16,7 +16,7 @@ struct SettingView: View {
                         .fontWeight(.heavy)
                         .foregroundColor(.black)
                 }
-                .listRowBackground(Color(red: 234/255, green: 220/255, blue: 195/255))
+                .listRowBackground(Color("\(Theme.ivory)"))
                 
                 Section {
                     SettingDetailView()
@@ -28,7 +28,7 @@ struct SettingView: View {
                         .fontWeight(.heavy)
                         .foregroundColor(.black)
                 }
-                .listRowBackground(Color(red: 234/255, green: 220/255, blue: 195/255))
+                .listRowBackground(Color("\(Theme.ivory)"))
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
