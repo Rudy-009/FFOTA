@@ -10,7 +10,7 @@ import SwiftUI
 struct TaskAddView: View {
     var taskStore: TaskStore
     
-    @Binding var isPresentedTaskEditView: Bool
+    @Binding var isPresentedTaskAddView: Bool
     
     @State var task: String = ""
     @State var selectColor: Color = Color(Theme.red.rawValue)
@@ -42,7 +42,7 @@ struct TaskAddView: View {
                 
                 VStack {
                     VStack(alignment: .leading) {
-                        Text("할 일 수정")
+                        Text("할 일")
                             .fontWeight(.bold)
                             .foregroundColor(.black)
                         TextField("할 일을 작성해주세요...", text: $task)
@@ -88,7 +88,7 @@ struct TaskAddView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        isPresentedTaskEditView = false
+                        isPresentedTaskAddView = false
                     } label: {
                         Text("취소")
                             .foregroundColor(.primary)
@@ -96,8 +96,8 @@ struct TaskAddView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        isPresentedTaskEditView = false
-                        taskStore.addTask()
+                        isPresentedTaskAddView = false
+                        taskStore.addTask(task, selectColor)
                     } label: {
                         Text("완료")
                             .foregroundColor(.primary)
@@ -110,6 +110,6 @@ struct TaskAddView: View {
 
 struct TaskAddView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskAddView(taskStore: TaskStore(), isPresentedTaskEditView: .constant(true))
+        TaskAddView(taskStore: TaskStore(), isPresentedTaskAddView: .constant(true))
     }
 }

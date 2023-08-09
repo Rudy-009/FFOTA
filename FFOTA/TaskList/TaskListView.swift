@@ -4,6 +4,7 @@ struct TaskListView: View {
     @ObservedObject var taskStore: TaskStore = TaskStore()
     
     @State var isPresentedTaskEditView: Bool = false
+    @State var isPresentedTaskAddView: Bool = false
     
     var body: some View {
         ZStack {
@@ -14,7 +15,7 @@ struct TaskListView: View {
                 HStack {
                     Spacer()
                     
-                    Button {
+                    Button { //Add Button
                         isPresentedTaskEditView = true
                     } label: {
                         ZStack {
@@ -32,8 +33,8 @@ struct TaskListView: View {
                 
                 ScrollView {
                     VStack {
-                        ForEach(0..<6) { index in
-                            TaskListItemView(isPresentedTaskEditView: $isPresentedTaskEditView)
+                        ForEach(taskStore.tasks) { task in
+                            TaskListItemView(isPresentedTaskEditView: $isPresentedTaskEditView, task: task)
                                 .padding()
                         }
                         Spacer()
@@ -42,7 +43,7 @@ struct TaskListView: View {
             }
         }
         .sheet(isPresented: $isPresentedTaskEditView) {
-            TaskEditView(taskStore: taskStore, isPresentedTaskEditView: $isPresentedTaskEditView)
+            TaskAddView(taskStore: taskStore, isPresentedTaskAddView: $isPresentedTaskAddView)
         }
     }
 }

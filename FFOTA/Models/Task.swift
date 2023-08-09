@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct Task {
+struct Task: Identifiable {
+    var id: UUID = UUID()
     var title: String
     var color: Color
 }
