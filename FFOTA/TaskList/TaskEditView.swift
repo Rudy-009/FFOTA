@@ -3,9 +3,11 @@ import SwiftUI
 struct TaskEditView: View {
     var taskStore: TaskStore
     
+    var task: Task
+    
     @Binding var isPresentedTaskEditView: Bool
     
-    @State var task: String = ""
+    @State var title: String = ""
     @State var selectColor: Color = Color(Theme.red.rawValue)
     
     let colors: [Color] = [
@@ -35,10 +37,10 @@ struct TaskEditView: View {
                 
                 VStack {
                     VStack(alignment: .leading) {
-                        Text("할 일 수정")
+                        Text("할 일")
                             .fontWeight(.bold)
                             .foregroundColor(.black)
-                        TextField("할 일을 작성해주세요...", text: $task)
+                        TextField("\(task.title)", text: $title)
                             .font(.system(size: 24))
                             .foregroundColor(Color(Theme.darkGray.rawValue))
                             .fontWeight(.bold)
@@ -97,11 +99,14 @@ struct TaskEditView: View {
                 }
             }
         }
+        .onAppear {
+            selectColor = task.color
+        }
     }
 }
 
-struct TaskEditView_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskEditView(taskStore: TaskStore(), isPresentedTaskEditView: .constant(true))
-    }
-}
+//struct TaskEditView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TaskEditView(taskStore: TaskStore(), isPresentedTaskEditView: .constant(true), task: Task(title: "밥 먹기", color: .purple))
+//    }
+//}

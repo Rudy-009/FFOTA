@@ -6,6 +6,8 @@ struct TaskListView: View {
     @State var isPresentedTaskEditView: Bool = false
     @State var isPresentedTaskAddView: Bool = false
     
+    @State var currentTask: Task = Task(title: "제발!", color: .yellow)
+    
     var body: some View {
         ZStack {
             Color(Theme.ivory.rawValue)
@@ -16,7 +18,7 @@ struct TaskListView: View {
                     Spacer()
                     
                     Button { //Add Button
-                        isPresentedTaskEditView = true
+                        isPresentedTaskAddView = true
                     } label: {
                         ZStack {
                             Circle()
@@ -34,16 +36,39 @@ struct TaskListView: View {
                 ScrollView {
                     VStack {
                         ForEach(taskStore.tasks) { task in
-                            TaskListItemView(isPresentedTaskEditView: $isPresentedTaskEditView, task: task)
-                                .padding()
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color(Theme.darkivory.rawValue))
+                                    .frame(height: 100)
+                                
+                                HStack {
+                                    TaskListItemView(isPresentedTaskEditView: $isPresentedTaskEditView, task: task)
+                                    
+                                    Spacer()
+                                    
+                                    Button {
+                                        self.currentTask = task
+                                        print(currentTask)
+                                        isPresentedTaskEditView = true
+                                    } label: {
+                                        Text("수정")
+                                            .foregroundColor(.gray)
+                                    }
+                                    .padding(.trailing)
+                                }
+                            }
                         }
+                        .padding(.horizontal)
                         Spacer()
                     }
                 }
             }
         }
-        .sheet(isPresented: $isPresentedTaskEditView) {
+        .sheet(isPresented: $isPresentedTaskAddView) {
             TaskAddView(taskStore: taskStore, isPresentedTaskAddView: $isPresentedTaskAddView)
+        }
+        .sheet(isPresented: $isPresentedTaskEditView) {
+            TaskEditView(taskStore: taskStore, task: currentTask, isPresentedTaskEditView: $isPresentedTaskEditView)
         }
     }
 }
