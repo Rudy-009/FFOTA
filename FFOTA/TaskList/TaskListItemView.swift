@@ -2,14 +2,13 @@ import SwiftUI
 
 struct TaskListItemView: View {
     @Binding var isPresentedTaskEditView: Bool
-    
     var task: Task
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .fill(Color(Theme.darkivory.rawValue))
-                .frame(height: 100)
+//        ZStack {
+//            RoundedRectangle(cornerRadius: 10)
+//                .fill(Color(Theme.darkivory.rawValue))
+//                .frame(height: 100)
             HStack {
                 Circle()
                     .fill(task.color)
@@ -21,16 +20,16 @@ struct TaskListItemView: View {
                     .fontWeight(.black)
                     .font(.system(size: 24))
                 Spacer()
-                Button {
-                    isPresentedTaskEditView = true
-                } label: {
-                    Text("수정")
-                        .foregroundColor(.gray)
-                }
-                .padding(.trailing)
+//                Button {
+//                    isPresentedTaskEditView = true
+//                } label: {
+//                    Text("수정")
+//                        .foregroundColor(.gray)
+//                }
+//                .padding(.trailing)
             }
             .padding()
-        }
+//        }
 
     }
 }
