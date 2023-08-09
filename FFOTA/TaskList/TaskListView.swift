@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TaskListView: View {
+    @ObservedObject var taskStore: TaskStore = TaskStore()
+    
     @State var isPresentedTaskEditView: Bool = false
     
     var body: some View {
@@ -40,7 +42,7 @@ struct TaskListView: View {
             }
         }
         .sheet(isPresented: $isPresentedTaskEditView) {
-            TaskEditView(isPresentedTaskEditView: $isPresentedTaskEditView)
+            TaskEditView(taskStore: taskStore, isPresentedTaskEditView: $isPresentedTaskEditView)
         }
     }
 }

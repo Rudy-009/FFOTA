@@ -21,6 +21,8 @@
 		63691E6C2A7F409600C38488 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63691E6B2A7F409600C38488 /* TaskListView.swift */; };
 		63691E6E2A7F40BA00C38488 /* TaskEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63691E6D2A7F40BA00C38488 /* TaskEditView.swift */; };
 		DC6545B22A7F5A1000FE05EA /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6545B12A7F5A1000FE05EA /* Theme.swift */; };
+		DCF79B172A83C5A600EF9CAB /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF79B162A83C5A600EF9CAB /* Task.swift */; };
+		DCF79B192A83C71100EF9CAB /* TaskStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF79B182A83C71100EF9CAB /* TaskStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		63691E6B2A7F409600C38488 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		63691E6D2A7F40BA00C38488 /* TaskEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditView.swift; sourceTree = "<group>"; };
 		DC6545B12A7F5A1000FE05EA /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		DCF79B162A83C5A600EF9CAB /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		DCF79B182A83C71100EF9CAB /* TaskStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,8 @@
 			isa = PBXGroup;
 			children = (
 				DC6545B12A7F5A1000FE05EA /* Theme.swift */,
+				DCF79B162A83C5A600EF9CAB /* Task.swift */,
+				DCF79B182A83C71100EF9CAB /* TaskStore.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -205,8 +211,10 @@
 				63691E642A7F3FCC00C38488 /* SettingView.swift in Sources */,
 				63691E4A2A7F3EC900C38488 /* FFOTAApp.swift in Sources */,
 				63691E622A7F3FA000C38488 /* SettingDetailView.swift in Sources */,
+				DCF79B192A83C71100EF9CAB /* TaskStore.swift in Sources */,
 				63691E662A7F3FF400C38488 /* StasticBoxView.swift in Sources */,
 				63691E6E2A7F40BA00C38488 /* TaskEditView.swift in Sources */,
+				DCF79B172A83C5A600EF9CAB /* Task.swift in Sources */,
 				63691E6C2A7F409600C38488 /* TaskListView.swift in Sources */,
 				DC6545B22A7F5A1000FE05EA /* Theme.swift in Sources */,
 				63691E682A7F401800C38488 /* StatisticView.swift in Sources */,
