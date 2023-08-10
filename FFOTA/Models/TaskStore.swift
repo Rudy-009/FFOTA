@@ -15,8 +15,17 @@ class TaskStore: ObservableObject {
         tasks.append(Task(title: name,color: color))
     }
     
-    func editTask() {
+    func editTask(title: String, color: Color, task: Task) {
+        var index: Int = 0
         
+        for temp in tasks {
+            if temp.id == task.id {
+                tasks.remove(at: index)
+                tasks.insert(Task(title: title, color: color), at: index)
+                break
+            }
+            index += 1
+        }
     }
     
     func deleteTask( task targeTask: Task) {

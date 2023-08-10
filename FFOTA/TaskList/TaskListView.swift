@@ -48,7 +48,6 @@ struct TaskListView: View {
                                     
                                     Button {
                                         self.currentTask = task
-                                        print(currentTask)
                                         isPresentedTaskEditView = true
                                     } label: {
                                         Text("수정")
