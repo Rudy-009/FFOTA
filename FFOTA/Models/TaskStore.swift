@@ -28,7 +28,13 @@ class TaskStore: ObservableObject {
         }
     }
     
-    func deleteTask() {
+    func deleteTask( task targeTask: Task) {
         
+        for index in 0..<tasks.count {
+            if targeTask.id == tasks[index].id {
+                tasks.remove(at: index)
+                return
+            }
+        }
     }
 }

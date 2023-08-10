@@ -56,6 +56,14 @@ struct TaskListView: View {
                                     .padding(.trailing)
                                 }
                             }
+                            .contextMenu {
+                                Button {
+                                    taskStore.deleteTask(task: task)
+                                } label: {
+                                    Image(systemName: "trash.slash")
+                                    Text("Remove")
+                                }
+                            }
                         }
                         .padding(.horizontal)
                         Spacer()
