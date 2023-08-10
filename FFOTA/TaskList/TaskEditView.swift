@@ -40,7 +40,7 @@ struct TaskEditView: View {
                         Text("할 일")
                             .fontWeight(.bold)
                             .foregroundColor(.black)
-                        TextField("\(task.title)", text: $title)
+                        TextField("할 일을 작성해주세요...", text: $title)
                             .font(.system(size: 24))
                             .foregroundColor(Color(Theme.darkGray.rawValue))
                             .fontWeight(.bold)
@@ -91,6 +91,9 @@ struct TaskEditView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
+//                        let editTask = Task(title: title, color: selectColor)
+                        taskStore.editTask(title: title, color: selectColor, task: task)
+                        
                         isPresentedTaskEditView = false
                     } label: {
                         Text("완료")
@@ -101,12 +104,13 @@ struct TaskEditView: View {
         }
         .onAppear {
             selectColor = task.color
+            title = task.title
         }
     }
 }
 
-//struct TaskEditView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TaskEditView(taskStore: TaskStore(), isPresentedTaskEditView: .constant(true), task: Task(title: "밥 먹기", color: .purple))
-//    }
-//}
+struct TaskEditView_Previews: PreviewProvider {
+    static var previews: some View {
+        TaskEditView(taskStore: TaskStore(), task: Task(title: "밥 먹기", color: .purple), isPresentedTaskEditView: .constant(true))
+    }
+}

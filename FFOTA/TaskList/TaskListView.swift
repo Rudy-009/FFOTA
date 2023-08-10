@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TaskListView: View {
-    @ObservedObject var taskStore: TaskStore = TaskStore()
+    @StateObject var taskStore: TaskStore = TaskStore()
     
     @State var isPresentedTaskEditView: Bool = false
     @State var isPresentedTaskAddView: Bool = false
@@ -48,7 +48,6 @@ struct TaskListView: View {
                                     
                                     Button {
                                         self.currentTask = task
-                                        print(currentTask)
                                         isPresentedTaskEditView = true
                                     } label: {
                                         Text("수정")
