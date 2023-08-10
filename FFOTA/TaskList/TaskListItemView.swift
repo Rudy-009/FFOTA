@@ -36,6 +36,6 @@ struct TaskListItemView: View {
 
 struct TaskListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskListItemView(isPresentedTaskEditView: .constant(true), task: Task(title: "", color: .red))
+        TaskListItemView(isPresentedTaskEditView: .constant(true), task: Task(title: "", colorName: Theme.darkivory.rawValue))
     }
 }

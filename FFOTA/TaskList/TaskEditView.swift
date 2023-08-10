@@ -8,17 +8,17 @@ struct TaskEditView: View {
     @Binding var isPresentedTaskEditView: Bool
     
     @State var title: String = ""
-    @State var selectColor: Color = Color(Theme.red.rawValue)
+    @State var selectColor = Theme.red.rawValue
     
-    let colors: [Color] = [
-        Color(Theme.red.rawValue),
-        Color(Theme.orange.rawValue),
-        Color(Theme.yellow.rawValue),
-        Color(Theme.green.rawValue),
-        Color(Theme.blue.rawValue),
-        Color(Theme.navy.rawValue),
-        Color(Theme.purple.rawValue),
-        Color(Theme.pink.rawValue),
+    let colors: [String] = [
+        Theme.red.rawValue,
+        Theme.orange.rawValue,
+        Theme.yellow.rawValue,
+        Theme.green.rawValue,
+        Theme.blue.rawValue,
+        Theme.navy.rawValue,
+        Theme.purple.rawValue,
+        Theme.pink.rawValue,
     ]
     
     let columns = [
@@ -63,7 +63,7 @@ struct TaskEditView: View {
                                 } label: {
                                     ZStack {
                                         Circle()
-                                            .fill(color)
+                                            .fill(Color(color))
                                             .frame(width: 53, height: 53)
                                         
                                         if selectColor == color {
@@ -103,7 +103,7 @@ struct TaskEditView: View {
             }
         }
         .onAppear {
-            selectColor = task.color
+            selectColor = task.colorName
             title = task.title
         }
     }
@@ -111,6 +111,6 @@ struct TaskEditView: View {
 
 struct TaskEditView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskEditView(taskStore: TaskStore(), task: Task(title: "밥 먹기", color: .purple), isPresentedTaskEditView: .constant(true))
+        TaskEditView(taskStore: TaskStore(), task: Task(title: "밥 먹기", colorName: Theme.navy.rawValue), isPresentedTaskEditView: .constant(true))
     }
 }

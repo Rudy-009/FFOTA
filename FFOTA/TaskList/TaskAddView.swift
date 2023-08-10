@@ -13,17 +13,17 @@ struct TaskAddView: View {
     @Binding var isPresentedTaskAddView: Bool
     
     @State var task: String = ""
-    @State var selectColor: Color = Color(Theme.red.rawValue)
+    @State var selectColor = Theme.red.rawValue
     
-    let colors: [Color] = [
-        Color(Theme.red.rawValue),
-        Color(Theme.orange.rawValue),
-        Color(Theme.yellow.rawValue),
-        Color(Theme.green.rawValue),
-        Color(Theme.blue.rawValue),
-        Color(Theme.navy.rawValue),
-        Color(Theme.purple.rawValue),
-        Color(Theme.pink.rawValue),
+    let colors: [String] = [
+        Theme.red.rawValue,
+        Theme.orange.rawValue,
+        Theme.yellow.rawValue,
+        Theme.green.rawValue,
+        Theme.blue.rawValue,
+        Theme.navy.rawValue,
+        Theme.purple.rawValue,
+        Theme.pink.rawValue,
     ]
     
     let columns = [
@@ -68,7 +68,7 @@ struct TaskAddView: View {
                                 } label: {
                                     ZStack {
                                         Circle()
-                                            .fill(color)
+                                            .fill(Color(color))
                                             .frame(width: 53, height: 53)
                                         
                                         if selectColor == color {

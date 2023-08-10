@@ -6,7 +6,7 @@ struct TaskListView: View {
     @State var isPresentedTaskEditView: Bool = false
     @State var isPresentedTaskAddView: Bool = false
     
-    @State var currentTask: Task = Task(title: "제발!", color: .yellow)
+    @State var currentTask: Task = Task(title: "제발!", colorName: Theme.ivory.rawValue)
     
     var body: some View {
         ZStack {
@@ -76,6 +76,9 @@ struct TaskListView: View {
         }
         .sheet(isPresented: $isPresentedTaskEditView) {
             TaskEditView(taskStore: taskStore, task: currentTask, isPresentedTaskEditView: $isPresentedTaskEditView)
+        }
+        .onAppear{
+            taskStore.fetchTasks()
         }
     }
 }

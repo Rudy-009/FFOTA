@@ -6,9 +6,14 @@
 //
 
 import SwiftUI
+import Foundation
 
-struct Task: Identifiable {
+struct Task: Codable, Identifiable {
     var id: UUID = UUID()
     var title: String
-    var color: Color
+    var colorName: String
+    
+    var color : Color {
+        return Color(colorName)
+    }
 }
