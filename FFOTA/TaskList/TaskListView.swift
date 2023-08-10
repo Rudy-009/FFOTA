@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TaskListView: View {
-    @ObservedObject var taskStore: TaskStore = TaskStore()
+    @StateObject var taskStore: TaskStore = TaskStore()
     
     @State var isPresentedTaskEditView: Bool = false
     @State var isPresentedTaskAddView: Bool = false
@@ -55,6 +55,14 @@ struct TaskListView: View {
                                             .foregroundColor(.gray)
                                     }
                                     .padding(.trailing)
+                                }
+                            }
+                            .contextMenu {
+                                Button {
+                                    taskStore.deleteTask(task: task)
+                                } label: {
+                                    Image(systemName: "trash.slash")
+                                    Text("Remove")
                                 }
                             }
                         }
