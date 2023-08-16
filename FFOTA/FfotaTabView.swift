@@ -9,7 +9,7 @@ struct FfotaTabView: View {
                 .tag(0)
             MainView(index: $tabIndex)
                 .tag(1)
-            TaskListView()
+            TaskListView(index: $tabIndex)
                 .tag(2)
         }
         .ignoresSafeArea()

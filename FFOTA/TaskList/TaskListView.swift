@@ -8,6 +8,8 @@ struct TaskListView: View {
     
     @State var currentTask: Task = Task(title: "제발!", colorName: Theme.ivory.rawValue)
     
+    @Binding var index: Int
+    
     var body: some View {
         ZStack {
             Color(Theme.ivory.rawValue)
@@ -30,38 +32,45 @@ struct TaskListView: View {
                                 .fontWeight(.bold)
                         }
                     }
-                    .padding([.trailing, .bottom])
+                    .padding([.trailing, .bottom, .top])
                 }
                 
                 ScrollView {
                     VStack {
                         ForEach(taskStore.tasks) { task in
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color(Theme.darkivory.rawValue))
-                                    .frame(height: 100)
-                                
-                                HStack {
-                                    TaskListItemView(isPresentedTaskEditView: $isPresentedTaskEditView, task: task)
-                                    
-                                    Spacer()
-                                    
-                                    Button {
-                                        self.currentTask = task
-                                        isPresentedTaskEditView = true
-                                    } label: {
-                                        Text("수정")
-                                            .foregroundColor(.gray)
-                                    }
-                                    .padding(.trailing)
+                            Button {
+                                //MainView로 넘어가야 함
+                                withAnimation{
+                                    index = 1
                                 }
-                            }
-                            .contextMenu {
-                                Button {
-                                    taskStore.deleteTask(task: task)
-                                } label: {
-                                    Image(systemName: "trash.slash")
-                                    Text("Remove")
+                            } label: {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color(Theme.darkivory.rawValue))
+                                        .frame(height: 100)
+                                    
+                                    HStack {
+                                        TaskListItemView(isPresentedTaskEditView: $isPresentedTaskEditView, task: task)
+                                        
+                                        Spacer()
+                                        
+                                        Button {
+                                            self.currentTask = task
+                                            isPresentedTaskEditView = true
+                                        } label: {
+                                            Text("수정")
+                                                .foregroundColor(.gray)
+                                        }
+                                        .padding(.trailing)
+                                    }
+                                }
+                                .contextMenu {
+                                    Button {
+                                        taskStore.deleteTask(task: task)
+                                    } label: {
+                                        Image(systemName: "trash.slash")
+                                        Text("Remove")
+                                    }
                                 }
                             }
                         }
@@ -85,7 +94,7 @@ struct TaskListView: View {
 
 struct TaskListView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskListView()
+        TaskListView(index: .constant(2))
     }
 }
 
