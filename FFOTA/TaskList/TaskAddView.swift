@@ -98,9 +98,10 @@ struct TaskAddView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        if !task.isEmpty {
+                        let trimmedTask = task.trimmingCharacters(in: .whitespaces)
+                        if !trimmedTask.isEmpty {
+                            taskStore.addTask(trimmedTask, selectColor)
                             isPresentedTaskAddView = false
-                            taskStore.addTask(task, selectColor)
                         } else {
                             isPresentedAlert = true
                         }

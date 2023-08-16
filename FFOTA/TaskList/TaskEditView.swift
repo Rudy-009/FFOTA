@@ -93,8 +93,9 @@ struct TaskEditView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        if !title.isEmpty {
-                            taskStore.editTask(title: title, color: selectColor, task: task)
+                        let trimmedTask = title.trimmingCharacters(in: .whitespaces)
+                        if !trimmedTask.isEmpty {
+                            taskStore.editTask(title: trimmedTask, color: selectColor, task: task)
                             isPresentedTaskEditView = false
                         } else {
                             isPresentedAlert = true
