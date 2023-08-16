@@ -7,6 +7,8 @@ struct TaskEditView: View {
     
     @Binding var isPresentedTaskEditView: Bool
     
+    @State var isPresentedAlert: Bool = false
+    
     @State var title: String = ""
     @State var selectColor = Theme.red.rawValue
     
@@ -91,15 +93,20 @@ struct TaskEditView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-//                        let editTask = Task(title: title, color: selectColor)
-                        taskStore.editTask(title: title, color: selectColor, task: task)
-                        
-                        isPresentedTaskEditView = false
+                        if !title.isEmpty {
+                            taskStore.editTask(title: title, color: selectColor, task: task)
+                            isPresentedTaskEditView = false
+                        } else {
+                            isPresentedAlert = true
+                        }
                     } label: {
                         Text("완료")
                             .foregroundColor(.primary)
                     }
                 }
+            }
+            .alert(isPresented: $isPresentedAlert) {
+                Alert(title: Text("할 일을 작성해주세요."), message: nil, dismissButton: .default(Text("확인")))
             }
         }
         .onAppear {

@@ -12,6 +12,8 @@ struct TaskAddView: View {
     
     @Binding var isPresentedTaskAddView: Bool
     
+    @State var isPresentedAlert: Bool = false
+    
     @State var task: String = ""
     @State var selectColor = Theme.red.rawValue
     
@@ -96,13 +98,20 @@ struct TaskAddView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        isPresentedTaskAddView = false
-                        taskStore.addTask(task, selectColor)
+                        if !task.isEmpty {
+                            isPresentedTaskAddView = false
+                            taskStore.addTask(task, selectColor)
+                        } else {
+                            isPresentedAlert = true
+                        }
                     } label: {
                         Text("완료")
                             .foregroundColor(.primary)
                     }
                 }
+            }
+            .alert(isPresented: $isPresentedAlert) {
+                Alert(title: Text("할 일을 작성해주세요."), message: nil, dismissButton: .default(Text("확인")))
             }
         }
     }
