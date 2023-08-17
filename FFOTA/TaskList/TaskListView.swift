@@ -6,7 +6,7 @@ struct TaskListView: View {
     @State var isPresentedTaskEditView: Bool = false
     @State var isPresentedTaskAddView: Bool = false
     
-    @State var currentTask: Task = Task(title: "제발!", colorName: Theme.ivory.rawValue)
+    @State var currentTask: Task = Task(title: "제발!", colorName: Theme.red.rawValue)
     
     @Binding var index: Int
     
@@ -84,7 +84,7 @@ struct TaskListView: View {
             TaskAddView(taskStore: taskStore, isPresentedTaskAddView: $isPresentedTaskAddView)
         }
         .sheet(isPresented: $isPresentedTaskEditView) {
-            TaskEditView(taskStore: taskStore, task: currentTask, isPresentedTaskEditView: $isPresentedTaskEditView)
+            TaskEditView(taskStore: taskStore, task: $currentTask, isPresentedTaskEditView: $isPresentedTaskEditView)
         }
         .onAppear{
             taskStore.fetchTasks()

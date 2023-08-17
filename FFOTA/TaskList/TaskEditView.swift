@@ -3,7 +3,7 @@ import SwiftUI
 struct TaskEditView: View {
     var taskStore: TaskStore
     
-    var task: Task
+    @Binding var task: Task
     
     @Binding var isPresentedTaskEditView: Bool
     
@@ -119,6 +119,6 @@ struct TaskEditView: View {
 
 struct TaskEditView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskEditView(taskStore: TaskStore(), task: Task(title: "밥 먹기", colorName: Theme.navy.rawValue), isPresentedTaskEditView: .constant(true))
+        TaskEditView(taskStore: TaskStore(), task: .constant(Task(title: "밥 먹기", colorName: Theme.navy.rawValue)), isPresentedTaskEditView: .constant(true))
     }
 }
