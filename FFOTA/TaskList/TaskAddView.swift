@@ -1,15 +1,20 @@
+//
+//  TaskAddView.swift
+//  FFOTA
+//
+//  Created by 이승준 on 2023/08/09.
+//
+
 import SwiftUI
 
-struct TaskEditView: View {
+struct TaskAddView: View {
     var taskStore: TaskStore
     
-    var task: Task
-    
-    @Binding var isPresentedTaskEditView: Bool
+    @Binding var isPresentedTaskAddView: Bool
     
     @State var isPresentedAlert: Bool = false
     
-    @State var title: String = ""
+    @State var task: String = ""
     @State var selectColor = Theme.red.rawValue
     
     let colors: [String] = [
@@ -42,7 +47,7 @@ struct TaskEditView: View {
                         Text("할 일")
                             .fontWeight(.bold)
                             .foregroundColor(.black)
-                        TextField("할 일을 작성해주세요...", text: $title)
+                        TextField("할 일을 작성해주세요...", text: $task)
                             .font(.system(size: 24))
                             .foregroundColor(Color(Theme.darkGray.rawValue))
                             .fontWeight(.bold)
@@ -85,7 +90,7 @@ struct TaskEditView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        isPresentedTaskEditView = false
+                        isPresentedTaskAddView = false
                     } label: {
                         Text("취소")
                             .foregroundColor(.primary)
@@ -93,10 +98,10 @@ struct TaskEditView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        let trimmedTask = title.trimmingCharacters(in: .whitespaces)
+                        let trimmedTask = task.trimmingCharacters(in: .whitespaces)
                         if !trimmedTask.isEmpty {
-                            taskStore.editTask(title: trimmedTask, color: selectColor, task: task)
-                            isPresentedTaskEditView = false
+                            taskStore.addTask(trimmedTask, selectColor)
+                            isPresentedTaskAddView = false
                         } else {
                             isPresentedAlert = true
                         }
@@ -110,15 +115,11 @@ struct TaskEditView: View {
                 Alert(title: Text("할 일을 작성해주세요."), message: nil, dismissButton: .default(Text("확인")))
             }
         }
-        .onAppear {
-            selectColor = task.colorName
-            title = task.title
-        }
     }
 }
 
-struct TaskEditView_Previews: PreviewProvider {
+struct TaskAddView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskEditView(taskStore: TaskStore(), task: Task(title: "밥 먹기", colorName: Theme.navy.rawValue), isPresentedTaskEditView: .constant(true))
+        TaskAddView(taskStore: TaskStore(), isPresentedTaskAddView: .constant(true))
     }
 }
