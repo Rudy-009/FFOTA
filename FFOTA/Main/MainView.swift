@@ -4,23 +4,16 @@ struct MainView: View {
     @Binding var index: Int
     
     var body: some View {
-        VStack{
-            //할 일 이름
-            Button {
-                index = 2
-            } label: {
-                Text("토익 문제 풀기")
-                    .font(.largeTitle)
-                    .fontWeight(.heavy)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(Color(Theme.cherry.rawValue))
-            }.padding(.top, 50)
+        VStack {
+            Spacer(minLength: 80)
+            Text("토익 문제 풀기")
+                .font(.largeTitle)
+                .fontWeight(.heavy)
+                .multilineTextAlignment(.center)
+                .foregroundColor(Color(Theme.cherry.rawValue))
+            
             //타이머
-            ZStack{
-                TimerCIrcle()
-            }
-            .padding(.leading, 40)
-            .padding(.trailing, 40)
+            TimerCircle()
             
             //Start버튼
             Button {
@@ -29,11 +22,10 @@ struct MainView: View {
                 Text("START")
                     .font(.largeTitle)
                     .fontWeight(.heavy)
-                .multilineTextAlignment(.center)
-                .foregroundColor(Color(Theme.cherry.rawValue))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(Color(Theme.cherry.rawValue))
             }
             .padding(.bottom, 100)
-            
         }
         .background(Color(Theme.ivory.rawValue))
     }
