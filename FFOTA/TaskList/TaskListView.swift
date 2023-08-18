@@ -84,7 +84,7 @@ struct TaskListView: View {
             TaskAddView(taskStore: taskStore, isPresentedTaskAddView: $isPresentedTaskAddView)
         }
         .sheet(isPresented: $isPresentedTaskEditView) {
-            TaskEditView(taskStore: taskStore, task: currentTask, isPresentedTaskEditView: $isPresentedTaskEditView)
+            TaskEditView(taskStore: taskStore, task: $currentTask, isPresentedTaskEditView: $isPresentedTaskEditView)
         }
         .onAppear{
             taskStore.fetchTasks()
