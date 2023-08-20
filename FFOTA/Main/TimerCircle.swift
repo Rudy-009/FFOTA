@@ -4,6 +4,7 @@ struct TimerCircle: View {
     let timerDiameter = 300.0
     @State var timerProgress = 0.0
     @State var rotationAngle: Angle = Angle(degrees: 120)
+    let impactMed = UIImpactFeedbackGenerator(style: .heavy)
     
     var body: some View {
         GeometryReader { geometryReader in
@@ -40,6 +41,9 @@ struct TimerCircle: View {
 //                    .font(.largeTitle)
 //                    .fontWeight(.bold)
 //                    .foregroundColor(Color.white)
+        }
+        .onChange(of: Int(timerProgress * 60)) { _ in
+            impactMed.impactOccurred()
         }
     }
     
