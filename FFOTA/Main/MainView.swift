@@ -6,6 +6,14 @@ struct MainView: View {
     @State var timer: Timer?
     @State var isTimerRunning = false
     
+    var displayMinutes: Int {
+        Int(timerProgress * 1 / 6)
+    }
+    
+    var displaySeconds: Int {
+        Int(timerProgress.truncatingRemainder(dividingBy: 1 / 6))
+    }
+    
     var body: some View {
         VStack {
             Spacer(minLength: 80)
@@ -21,13 +29,13 @@ struct MainView: View {
                 isTimerRunning.toggle()
                 if isTimerRunning {
                     timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { time in
-                        timerProgress > 0 ? timerProgress -= 1 / 60 : timer?.invalidate()
+                        timerProgress > 0 ? timerProgress -= 1 / 3600 : timer?.invalidate()
                     }
                 } else {
                     timer?.invalidate()
                 }
             } label: {
-                Text("\(timerProgress == 0 ? "START" : "\(Int(timerProgress * 60))")")
+                Text("\(timerProgress == 0 ? "START" : "\(displayMinutes) : \(displaySeconds)")")
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                     .multilineTextAlignment(.center)
@@ -36,7 +44,6 @@ struct MainView: View {
             .padding(.bottom, 100)
         }
         .background(Color(Theme.ivory.rawValue))
-        
     }
 }
 
