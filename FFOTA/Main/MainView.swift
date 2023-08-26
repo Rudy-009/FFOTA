@@ -2,6 +2,17 @@ import SwiftUI
 
 struct MainView: View {
     @Binding var index: Int
+    @State var timerProgress: Double = 0
+    @State var timer: Timer?
+    @State var isTimerRunning = false
+    
+    var displayMinutes: Int {
+        Int(timerProgress * 1 / 6)
+    }
+    
+    var displaySeconds: Int {
+        Int(timerProgress.truncatingRemainder(dividingBy: 1 / 6))
+    }
     
     var body: some View {
         VStack {
@@ -12,14 +23,19 @@ struct MainView: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color(Theme.cherry.rawValue))
             
-            //타이머
-            TimerCircle()
+            TimerCircle(timerProgress: $timerProgress)
             
-            //Start버튼
             Button {
-                //타이머 시작 버튼
+                isTimerRunning.toggle()
+                if isTimerRunning {
+                    timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { time in
+                        timerProgress > 0 ? timerProgress -= 1 / 3600 : timer?.invalidate()
+                    }
+                } else {
+                    timer?.invalidate()
+                }
             } label: {
-                Text("START")
+                Text("\(timerProgress == 0 ? "START" : "\(displayMinutes) : \(displaySeconds)")")
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                     .multilineTextAlignment(.center)

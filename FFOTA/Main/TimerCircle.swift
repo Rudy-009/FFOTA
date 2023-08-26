@@ -2,8 +2,8 @@ import SwiftUI
 
 struct TimerCircle: View {
     let timerDiameter = 300.0
-    @State var timerProgress = 0.0
-    @State var rotationAngle: Angle = Angle(degrees: 120)
+    @Binding var timerProgress: Double
+    @State var rotationAngle: Angle = Angle(degrees: 0)
     let impactMed = UIImpactFeedbackGenerator(style: .heavy)
     
     var body: some View {
@@ -36,11 +36,6 @@ struct TimerCircle: View {
                             })
                     )
             }
-            
-//                Text("\(timerProgress * 60, specifier: "%.f")")
-//                    .font(.largeTitle)
-//                    .fontWeight(.bold)
-//                    .foregroundColor(Color.white)
         }
         .onChange(of: Int(timerProgress * 60)) { _ in
             impactMed.impactOccurred()
@@ -50,16 +45,18 @@ struct TimerCircle: View {
     func changeAngle(location: CGPoint) -> Angle {
         let vector = CGVector(dx: location.x, dy: -location.y)
         let angleRadians = atan2(vector.dx, vector.dy)
-        let positiveAngle = angleRadians < 0.0 ? angleRadians + (2.0 * .pi) : angleRadians
-        
-        timerProgress = round(positiveAngle * 10) / 10.0 / (2.0 * .pi)
+        var angle = angleRadians * 180 / .pi
+        if angle < 0 { angle = 360 + angle }
+        timerProgress = Double(angle)
+        let roundValue = 6 * Int(round(timerProgress) / 6)
+        timerProgress = Double(roundValue)
 
-        return Angle(radians: round(positiveAngle * 10) / 10.0)
+        return Angle(degrees: timerProgress)
     }
 }
 
 struct TimerCircle_Previews: PreviewProvider {
     static var previews: some View {
-        TimerCircle()
+        TimerCircle(timerProgress: .constant(1))
     }
 }
