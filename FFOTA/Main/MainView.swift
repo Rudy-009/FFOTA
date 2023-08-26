@@ -11,7 +11,7 @@ struct MainView: View {
     }
     
     var displaySeconds: Int {
-        Int(timerProgress.truncatingRemainder(dividingBy: 1 / 6))
+        Int(timerProgress.truncatingRemainder(dividingBy: 6) * 10)
     }
     
     var body: some View {
@@ -24,12 +24,14 @@ struct MainView: View {
                 .foregroundColor(Color(Theme.cherry.rawValue))
             
             TimerCircle(timerProgress: $timerProgress)
-            
+            Text("\(timerProgress)")
             Button {
                 isTimerRunning.toggle()
                 if isTimerRunning {
-                    timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { time in
-                        timerProgress > 0 ? timerProgress -= 1 / 3600 : timer?.invalidate()
+                    timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { time in
+                        timerProgress > 0 ? timerProgress -= 0.01 : timer?.invalidate()
+                        print("timerProgress : \(timerProgress)")
+                        print("\(displayMinutes) : \(displaySeconds)")
                     }
                 } else {
                     timer?.invalidate()
