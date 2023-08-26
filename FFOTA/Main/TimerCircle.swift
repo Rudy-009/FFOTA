@@ -57,6 +57,13 @@ struct TimerCircle: View {
 
 struct TimerCircle_Previews: PreviewProvider {
     static var previews: some View {
-        TimerCircle(timerProgress: .constant(1))
+        PreviewWrapper()
+    }
+
+    struct PreviewWrapper: View {
+        @State private var timerProgress: Double = 0
+        var body: some View {
+            TimerCircle(timerProgress: $timerProgress)
+        }
     }
 }
