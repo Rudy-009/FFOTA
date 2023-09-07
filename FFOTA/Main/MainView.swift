@@ -1,7 +1,10 @@
 import SwiftUI
 
 struct MainView: View {
+    @ObservedObject var timeTokenStore: TimeTokenStore = TimeTokenStore()
+    
     @Binding var index: Int
+    
     @State var timerProgress: Double = 0
     @State var timer: Timer?
     @State var isTimerRunning = false
@@ -28,8 +31,10 @@ struct MainView: View {
             Button {
                 isTimerRunning.toggle()
                 if isTimerRunning {
-                    timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { time in
-                        timerProgress > 0 ? timerProgress -= 1 / 100 : timer?.invalidate()
+                    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { time in
+                        timerProgress > 0 ? timerProgress -= 1 / 10 : timer?.invalidate()
+                        timeTokenStore.addTotal()
+                        timeTokenStore.saveTasks()
                     }
                 } else {
                     timer?.invalidate()
@@ -47,6 +52,9 @@ struct MainView: View {
             .padding(.bottom, 100)
             
             Text("\(timerProgress)")
+        }
+        .onAppear {
+            timeTokenStore.fetchTasks()
         }
         .background(Color(Theme.ivory.rawValue))
         .onChange(of: timerProgress) { newValue in
