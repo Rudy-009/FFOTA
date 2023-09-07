@@ -3,7 +3,9 @@ import SwiftUI
 struct TimerCircle: View {
     let timerDiameter = 300.0
     @Binding var timerProgress: Double
+    @Binding var isTimerRunning: Bool
     @State var rotationAngle: Angle = Angle(degrees: 0)
+    @State private var whiteCircleOpacity: Double = 1.0
     let impactMed = UIImpactFeedbackGenerator(style: .heavy)
     
     var body: some View {
@@ -12,13 +14,14 @@ struct TimerCircle: View {
                 Circle()
                     .fill(Color(Theme.darkivory.rawValue))
                     .frame(width: timerDiameter)
+                
                 Path { path in
                     path.move(to: CGPoint(x: geometryReader.size.width / 2, y: geometryReader.size.height / 2))
                     path.addArc(
                         center: CGPoint(x: geometryReader.size.width / 2, y: geometryReader.size.height / 2),
                         radius: timerDiameter / 2,
                         startAngle: .degrees(-90),
-                        endAngle: rotationAngle - Angle(degrees: 90),
+                        endAngle: Angle(degrees: timerProgress) - Angle(degrees: 90),
                         clockwise: false
                     )
                     path.closeSubpath()
@@ -28,7 +31,8 @@ struct TimerCircle: View {
                     .fill(Color.white)
                     .frame(width: 21, height: 21)
                     .offset(y: -timerDiameter / 2.0)
-                    .rotationEffect(rotationAngle)
+                    .rotationEffect(Angle(degrees: timerProgress))
+                    .opacity(whiteCircleOpacity)
                     .gesture(
                         DragGesture(minimumDistance: 0.0)
                             .onChanged({ draggedValue in
@@ -39,6 +43,11 @@ struct TimerCircle: View {
         }
         .onChange(of: Int(timerProgress * 60)) { _ in
             impactMed.impactOccurred()
+        }
+        .onChange(of: isTimerRunning) { newValue in
+            withAnimation {
+                whiteCircleOpacity = newValue ? 0.0 : 1.0
+            }
         }
     }
     
@@ -63,7 +72,7 @@ struct TimerCircle_Previews: PreviewProvider {
     struct PreviewWrapper: View {
         @State private var timerProgress: Double = 0
         var body: some View {
-            TimerCircle(timerProgress: $timerProgress)
+            TimerCircle(timerProgress: $timerProgress, isTimerRunning: .constant(false))
         }
     }
 }

@@ -6,12 +6,12 @@ struct MainView: View {
     @State var timer: Timer?
     @State var isTimerRunning = false
     
-    var displayMinutes: Int {
-        Int(timerProgress * 1 / 6)
+    var displayMinutes: String {
+        String(format: "%02d", Int(timerProgress * 1 / 6))
     }
     
-    var displaySeconds: Int {
-        Int(timerProgress.truncatingRemainder(dividingBy: 1 / 6))
+    var displaySeconds: String {
+        String(format: "%02d", Int(timerProgress.truncatingRemainder(dividingBy: 6) * 10))
     }
     
     var body: some View {
@@ -23,27 +23,38 @@ struct MainView: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color(Theme.cherry.rawValue))
             
-            TimerCircle(timerProgress: $timerProgress)
+            TimerCircle(timerProgress: $timerProgress, isTimerRunning: $isTimerRunning)
             
             Button {
                 isTimerRunning.toggle()
                 if isTimerRunning {
-                    timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { time in
-                        timerProgress > 0 ? timerProgress -= 1 / 3600 : timer?.invalidate()
+                    timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { time in
+                        timerProgress > 0 ? timerProgress -= 1 / 100 : timer?.invalidate()
                     }
                 } else {
                     timer?.invalidate()
                 }
             } label: {
-                Text("\(timerProgress == 0 ? "START" : "\(displayMinutes) : \(displaySeconds)")")
+                Text("\(timerProgress <= 0 ? "START" : "\(displayMinutes) : \(displaySeconds)")")
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color(Theme.cherry.rawValue))
+                    .lineLimit(1)
+                    .minimumScaleFactor(1)
+
             }
             .padding(.bottom, 100)
+            
+            Text("\(timerProgress)")
         }
         .background(Color(Theme.ivory.rawValue))
+        .onChange(of: timerProgress) { newValue in
+            if newValue <= 0 {
+                isTimerRunning = false
+                timerProgress = 0
+            }
+        }
     }
 }
 
