@@ -25,7 +25,7 @@ struct StatisticView: View {
                 }
             }
             .onAppear {
-                timeTokenStore.fetchTasks()
+                timeTokenStore.loadAndUpdateTodayTimeStack()
             }
             .padding()
         }
