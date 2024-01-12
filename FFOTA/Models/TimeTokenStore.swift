@@ -1,27 +1,46 @@
-import Foundation
 import SwiftUI
 
 class TimeTokenStore: ObservableObject {
 
     var timeStack = 0
     var weekString: [String] = [String](repeating: "", count: 7)
-    //["2023-08-29", "2023-08-30", "2023-08-31", "2023-09-01", "2023-09-02", "2023-09-03", "2023-09-04"]
     var timesOfWeek: [Int] = [Int](repeating: 0, count: 7)
-    //
+    
+    // DateFormatter를 함수 외부에 정의하고 초기화
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
     
     @Published var times: [String:Int] = [:]
     @Published var timeStackofaWeek = [Color](repeating: Color.white, count: 7)
     
-    func fetchTasks() {
-        //UserDefault에서 값을 불러오기
-        times = UserDefaults.standard.object(forKey: "Times") as? [String : Int] ?? [:]
+    func loadAndUpdateTodayTimeStack() {
+        // UserDefaults에서 값을 불러와 times 딕셔너리 초기화
+        times = loadTimesFromUserDefaults()
         
-        //키가 오늘 날짜인 값을 timeStack에 갱신해주기
-        //만약 오늘 날짜 키가 없다면 오늘 처음 앱을 켰다는 뜻
-        let today: String = todayString()
-        timeStack = times[today] ?? 0
+        // 오늘 날짜의 시간 스택 갱신
+        timeStack = updateTimeStackForToday()
         
+        // 다른 작업을 수행할 수 있는 함수 호출
         getTimeStackOfaWeek(times: times)
+    }
+
+    // UserDefaults에서 값을 불러오는 함수
+    func loadTimesFromUserDefaults() -> [String: Int] {
+        return UserDefaults.standard.dictionary(forKey: "Times") as? [String: Int] ?? [:]
+    }
+    
+    // 오늘 날짜의 시간 스택을 갱신하는 함수
+    func updateTimeStackForToday() -> Int {
+        let todayKey = keyForToday()
+        return times[todayKey] ?? 0
+    }
+
+    // 현재 날짜의 문자열을 생성하는 함수
+    func keyForToday() -> String {
+        return dateFormatter.string(from: Date())
     }
     
     func saveTasks() {
@@ -29,67 +48,53 @@ class TimeTokenStore: ObservableObject {
         UserDefaults.standard.set(times, forKey: "Times")
     }
     
-    func addTotal(){
-        let today: String = todayString() //26
+    //1초마다 키의 값에 +1초 더해주기
+    //하루가 넘어가면
+    func updateTotalCount() {
+        let today = keyForToday()
         
-        //날짜를 비교
-        if let total = times[todayString()] {
-            //날짜가 넘어가지 않은 순간
-            timeStack = total + 1
-            times[today] = timeStack
-            print("\(today) : \(total)")
-            saveTasks()
-            fetchTasks()
-            return
+        if var total = times[today] {
+            total += 1
+            timeStack = total
+        } else {
+            timeStack = 0
         }
         
-        //날짜가 넘어간 순간
-        timeStack = 0
         times[today] = timeStack
         
         saveTasks()
-        fetchTasks()
+        loadAndUpdateTodayTimeStack()
+        
+        //print("\(today) : \(timeStack)")
     }
     
     func showTime()-> Int {
-        let today: String = todayString()
+        let today: String = keyForToday()
         return times[today] ?? 0
     }
     
-    //오늘 날짜 "yyyy-MM-dd" 형태로 불러오기
-    func todayString() -> String {
-        let date: Date = Date() //
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let today = formatter.string(from: date)
-        
-        return today
-    }
-    
-    func dateToString(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let day = formatter.string(from: date)
-        
-        return day
+    func stringFromDate(date: Date) -> String {
+        return dateFormatter.string(from: date)
     }
     
     func weekArray() {
-        weekString.removeAll()
         let calendar = Calendar.current
         let today: Date = Date()
-        for dayIndex in 0...6 {
+        
+        weekString.removeAll()
+        
+        weekString = (0..<7).map { dayIndex in
             let date = calendar.date(byAdding: .day, value: dayIndex - 6, to: today)!
-            weekString.append(dateToString(date: date))
+            return stringFromDate(date: date)
         }
     }
     
     func dictionaryToArray(week: [String]) {
         //0 index 예전 날짜, 6은 오늘 날짜
         timesOfWeek.removeAll()
-        for index in 0...6 {
-            let totalTimeOfDay = times[weekString[index]] ?? 0
-            timesOfWeek.append(totalTimeOfDay)
+        
+        let timesOfWeek = (0..<7).map { index in
+            return times[weekString[index], default: 0]
         }
     }
     
@@ -98,8 +103,7 @@ class TimeTokenStore: ObservableObject {
         weekArray()
         //print(weekString)
         //["2023-08-29", "2023-08-30", "2023-08-31", "2023-09-01", "2023-09-02", "2023-09-03", "2023-09-04"]
-        
-        
+
         //이 배열을 통해 Dictionary에 접근
         //key가 있으면 값을 가져오고 key가 없으면 0을 가져옴
         //이에 맞춰 값을 갱신 (시간이 쌓이면 색이 바뀌고, 날짜가 넘어가면 칸이 바뀜)

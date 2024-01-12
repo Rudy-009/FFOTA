@@ -33,7 +33,7 @@ struct MainView: View {
                 if isTimerRunning {
                     timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { time in
                         timerProgress > 0 ? timerProgress -= 1 / 10 : timer?.invalidate()
-                        timeTokenStore.addTotal()
+                        timeTokenStore.updateTotalCount()
                         timeTokenStore.saveTasks()
                     }
                 } else {
@@ -54,7 +54,7 @@ struct MainView: View {
             Text("\(timerProgress)")
         }
         .onAppear {
-            timeTokenStore.fetchTasks()
+            timeTokenStore.loadAndUpdateTodayTimeStack()
         }
         .background(Color(Theme.ivory.rawValue))
         .onChange(of: timerProgress) { newValue in
